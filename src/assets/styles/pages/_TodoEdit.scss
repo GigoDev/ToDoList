@@ -1,21 +1,25 @@
 .todo-edit {
-    justify-content: space-between;
-
     width: 50vh;
-    
 
-    border: 1px solid black;
+    margin: auto;
     padding: 2rem;
+
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 
     h1 {
         align-self: center;
+        font-size: 22px;
+        font-weight: 600;
+        color: #333;
     }
 
     .input-container {
         padding-block: 1rem;
     }
 
-    .btns-container{
+    .btns-container {
         display: flex;
         justify-content: space-between;
     }

@@ -1,10 +1,11 @@
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { todoService } from "../services/todo.service.js"
-import { Button, ButtonGroup, Input, Select, Text } from '@chakra-ui/react'
+import { Button, ButtonGroup, Input, Select, Spinner, Text } from '@chakra-ui/react'
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 export function TodoEdit() {
 
@@ -47,6 +48,7 @@ export function TodoEdit() {
 
 
     const { task, assignee } = todoToEdit
+
     return (
         <section className="todo-edit flex column">
             <h1>{todoId ? 'Edit' : 'Add'} Todo</h1>
@@ -54,12 +56,12 @@ export function TodoEdit() {
 
                 <div className="input-container">
                     <Text mb='8px'>Task: </Text>
-                    <Input onChange={handleChange} value={task} type="text" name="task" />
+                    <Input onChange={handleChange} value={task} type="text" name="task" isRequired />
                 </div>
 
                 <div className="input-container">
                     <Text mb='8px'>Assignee: </Text>
-                    <Input onChange={handleChange} value={assignee} type="text" name="assignee" id="assignee" />
+                    <Input onChange={handleChange} value={assignee} type="text" name="assignee" isRequired />
                 </div>
 
                 <div className="input-container">
@@ -72,7 +74,7 @@ export function TodoEdit() {
                 </div>
 
                 <ButtonGroup spacing='6'>
-                    <Button type="submit" colorScheme='blue'>{todoId ? 'Save' : 'Add'}</Button>
+                    <Button  type="submit" colorScheme='blue'>{todoId ? 'Save' : 'Add'}</Button>
                     <Link to="/todo"> <Button>Cancel</Button></Link>
                 </ButtonGroup>
 

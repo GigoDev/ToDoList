@@ -6,7 +6,7 @@ import { Link, Outlet } from "react-router-dom";
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
-import { Button, IconButton, Spinner } from "@chakra-ui/react";
+import { Button, Spinner } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 
 
@@ -55,12 +55,11 @@ export function TodoIndex() {
     />
     return (
         <section className="todo-index">
-            <h3>Todo App</h3>
+            <h1>TODO LIST</h1>
             <Link className="add-btn" to="/todo/edit">
                 <Button leftIcon={<AddIcon />} colorScheme='pink' variant='solid'>Add Task</Button>
             </Link>
             <ReactTable data={todos} onRemoveTodo={onRemoveTodo} />
-            <Outlet />
         </section>
 
     )

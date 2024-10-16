@@ -1,4 +1,14 @@
-// .todo-index{
-//     width: 90vw;
-//     height: 100%;
-// }
+.todo-index {
+    padding: 1rem;
+
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+
+    h1 {
+        text-align: center;
+        font-size: 22px;
+        font-weight: 600;
+        color: #333;
+    }
+}
