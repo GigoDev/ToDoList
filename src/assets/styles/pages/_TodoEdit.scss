@@ -1,0 +1,22 @@
+.todo-edit {
+    justify-content: space-between;
+
+    width: 50vh;
+    
+
+    border: 1px solid black;
+    padding: 2rem;
+
+    h1 {
+        align-self: center;
+    }
+
+    .input-container {
+        padding-block: 1rem;
+    }
+
+    .btns-container{
+        display: flex;
+        justify-content: space-between;
+    }
+}

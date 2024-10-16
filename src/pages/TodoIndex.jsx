@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react"
 import { ReactTable } from "../cmps/ReactTable"
 import { todoService } from "../services/todo.service"
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
+import { Spinner } from "@chakra-ui/react";
 
 
 export function TodoIndex() {
@@ -49,15 +50,13 @@ export function TodoIndex() {
 
 
 
-    if (!todos) return <span>Loading...</span>
+    if (!todos) return <Spinner thickness='4px'speed='0.65s'emptyColor='gray.200'color='blue.500'size='xl'
+  />
     return (
         <section className="todo-index">
             <h3>Todo App</h3>
             <Link to="/todo/edit">Add Todo</Link>
             <ReactTable data={todos} onRemoveTodo={onRemoveTodo} />
-            <section>
-                <Outlet />
-            </section>
         </section>
 
     )

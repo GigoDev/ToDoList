@@ -1,8 +1,9 @@
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { todoService } from "../services/todo.service.js"
+import { Button, ButtonGroup, Input, Select, Text } from '@chakra-ui/react'
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export function TodoEdit() {
@@ -47,26 +48,33 @@ export function TodoEdit() {
 
     const { task, assignee } = todoToEdit
     return (
-        <section className="todo-edit">
+        <section className="todo-edit flex column">
             <h1>{todoId ? 'Edit' : 'Add'} Todo</h1>
-            <form onSubmit={onSaveTodo}>
-                <label htmlFor="task">Task</label>
-                <input onChange={handleChange} value={task} type="text" name="task" id="task" />
+            <form className="flex column" onSubmit={onSaveTodo}>
 
-                <label htmlFor="assignee">Assignee</label>
-                <input onChange={handleChange} value={assignee} type="text" name="assignee" id="assignee" />
-
-                <label htmlFor="priority">Choose a priority</label>
-                <select onChange={handleChange} name="priority" id="priority">
-                    <option value="high">High</option>
-                    <option value="medium">Medium</option>
-                    <option value="low">Low</option>
-                </select>
-
-                <div>
-                    <button>{todoId ? 'Save' : 'Add'}</button>
-                    <Link to="/todo">Cancel</Link>
+                <div className="input-container">
+                    <Text mb='8px'>Task: </Text>
+                    <Input onChange={handleChange} value={task} type="text" name="task" />
                 </div>
+
+                <div className="input-container">
+                    <Text mb='8px'>Assignee: </Text>
+                    <Input onChange={handleChange} value={assignee} type="text" name="assignee" id="assignee" />
+                </div>
+
+                <div className="input-container">
+                    <Text mb='8px'>Select priority: </Text>
+                    <Select onChange={handleChange} name="priority">
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </Select>
+                </div>
+
+                <ButtonGroup  spacing='6'>
+                    <Button colorScheme='blue'>{todoId ? 'Save' : 'Add'}</Button>
+                    <Button><Link to="/todo">Cancel</Link></Button>
+                </ButtonGroup>
 
             </form>
         </section>

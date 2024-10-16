@@ -22,6 +22,7 @@ export function ReactTable({ data, onRemoveTodo }) {
                 accessorKey: 'task',
                 header: () => 'Task',
                 cell: info => info.getValue(),
+                enableSorting: false,
             },
             {
                 accessorKey: 'assignee',
@@ -38,13 +39,15 @@ export function ReactTable({ data, onRemoveTodo }) {
                 },
             },
             {
-                id: 'actions',
-                header: () => 'Actions',
+                id: 'delete',
                 cell: ({ row }) => (
-                    <div className="actions-container">
                         <button onClick={() => onRemoveTodo(row.original._id)}>Delete </button>
+                ),
+            },
+            {
+                id: 'edit',
+                cell: ({ row }) => (
                         <button><Link to={`/todo/edit/${row.original._id}`}>Edit</Link></button>
-                    </div>
                 ),
             },
 
