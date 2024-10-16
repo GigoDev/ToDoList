@@ -57,7 +57,7 @@ function getEmptyTodo() {
     return {
         task: '',
         assignee: '',
-        priority: ''
+        priority: 'high'
     }
 }
 

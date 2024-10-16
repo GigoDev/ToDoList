@@ -1,10 +1,11 @@
-import { useState } from "react"
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
 import { ReactTable } from "../cmps/ReactTable"
 import { todoService } from "../services/todo.service"
+import { Link, Outlet } from "react-router-dom";
 
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
 
 
 export function TodoIndex() {
@@ -26,11 +27,23 @@ export function TodoIndex() {
 
     async function onRemoveTodo(todoId) {
         try {
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            })
+            if (!result.isConfirmed) return
+
             await todoService.remove(todoId)
             setTodos(todos => todos.filter(todo => todo._id !== todoId))
-            toast('Success')
+            toast.success('Todo was successfully removed!')
         } catch (err) {
             console.log(err)
+            toast.error('Something went wrong, cannot remove todo')
         }
     }
 
@@ -39,9 +52,13 @@ export function TodoIndex() {
     if (!todos) return <span>Loading...</span>
     return (
         <section className="todo-index">
-            TodoIndex
+            <h3>Todo App</h3>
+            <Link to="/todo/edit">Add Todo</Link>
             <ReactTable data={todos} onRemoveTodo={onRemoveTodo} />
-            <ToastContainer />
+            <section>
+                <Outlet />
+            </section>
         </section>
+
     )
 }
