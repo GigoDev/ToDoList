@@ -12,12 +12,12 @@ export function RootCmp() {
       <main className="main-container">
         <Routes>
           <Route path="/" element={<Navigate to="/todo" />} />
-          <Route path="/todo" element={<TodoIndex />} />
-          <Route element={<TodoEdit />} path="/todo/edit" />
-          <Route element={<TodoEdit />} path="/todo/edit/:todoId" />
-
+          <Route path="/todo" element={<TodoIndex />} >
+            <Route element={<TodoEdit />} path="/todo/edit" />
+            <Route element={<TodoEdit />} path="/todo/edit/:todoId" />
+          </Route>
         </Routes>
-        <ToastContainer autoClose={1000} />
+        <ToastContainer autoClose={1500} />
       </main>
     </ChakraProvider>
   )

@@ -1,10 +1,12 @@
+import { Select } from "@chakra-ui/react";
+
 export function Filter({ column, todos, displayedRowsLength }) {
     const columnFilterValue = column.getFilterValue()
     const { filterVariant } = column.columnDef.meta ?? {}
 
 
     if (!filterVariant) return null
-    if (!displayedRowsLength)  column.setFilterValue('')
+    if (!displayedRowsLength) column.setFilterValue('')
 
     function getUniqueValues(data, accessorKey) {
         const values = data.map(item => item[accessorKey]);
@@ -14,7 +16,9 @@ export function Filter({ column, todos, displayedRowsLength }) {
     // Get unique values for the select filter
     const uniqueValues = getUniqueValues(todos, column.columnDef.accessorKey)
     return (
-        <select
+        <Select
+            className="filter"
+            size='sm'
             onChange={e => column.setFilterValue(e.target.value)}
             value={columnFilterValue?.toString()}
         >
@@ -24,6 +28,6 @@ export function Filter({ column, todos, displayedRowsLength }) {
                     {value}
                 </option>
             ))}
-        </select>
+        </Select>
     );
 }

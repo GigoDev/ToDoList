@@ -71,9 +71,9 @@ export function TodoEdit() {
                     </Select>
                 </div>
 
-                <ButtonGroup  spacing='6'>
-                    <Button colorScheme='blue'>{todoId ? 'Save' : 'Add'}</Button>
-                    <Button><Link to="/todo">Cancel</Link></Button>
+                <ButtonGroup spacing='6'>
+                    <Button type="submit" colorScheme='blue'>{todoId ? 'Save' : 'Add'}</Button>
+                    <Link to="/todo"> <Button>Cancel</Button></Link>
                 </ButtonGroup>
 
             </form>

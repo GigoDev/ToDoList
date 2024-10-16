@@ -8,8 +8,23 @@ import {
     getSortedRowModel,
     useReactTable,
 } from '@tanstack/react-table'
+
+import {
+    Table,
+    Thead,
+    Tbody,
+    Tfoot,
+    Tr,
+    Th,
+    Td,
+    TableCaption,
+    TableContainer,
+    Input,
+} from '@chakra-ui/react'
+
 import { Filter } from './Filter'
 import { Link } from 'react-router-dom'
+import { ArrowUpDownIcon, DeleteIcon, EditIcon, TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons'
 
 
 export function ReactTable({ data, onRemoveTodo }) {
@@ -41,13 +56,14 @@ export function ReactTable({ data, onRemoveTodo }) {
             {
                 id: 'delete',
                 cell: ({ row }) => (
-                        <button onClick={() => onRemoveTodo(row.original._id)}>Delete </button>
+
+                    <DeleteIcon onClick={() => onRemoveTodo(row.original._id)} style={{ cursor: 'pointer' }} />
                 ),
             },
             {
                 id: 'edit',
                 cell: ({ row }) => (
-                        <button><Link to={`/todo/edit/${row.original._id}`}>Edit</Link></button>
+                    <Link to={`/todo/edit/${row.original._id}`}>< EditIcon /></Link>
                 ),
             },
 
@@ -75,57 +91,58 @@ export function ReactTable({ data, onRemoveTodo }) {
     const displayedRows = table.getRowModel().rows
 
     return (
-        <div className="p-2">
-            <table>
-                <thead>
-                    {table.getHeaderGroups().map(headerGroup => (
-                        <tr key={headerGroup.id}>
-                            {headerGroup.headers.map(header => {
-                                return (
-                                    <th key={header.id} colSpan={header.colSpan}>
-                                        {header.isPlaceholder ? null : (
-                                            <>
-                                                <div
-                                                    className={header.column.getCanSort() ? 'cursor-pointer select-none' : ''}
-                                                    onClick={header.column.getToggleSortingHandler()}
-                                                >
-                                                    {flexRender(header.column.columnDef.header, header.getContext())}
-                                                    {{
-                                                        asc: ' 🔼',
-                                                        desc: ' 🔽',
-                                                    }[header.column.getIsSorted()] ?? null}
-                                                </div>
-                                                {header.column.getCanFilter() ? (
-                                                    <div>
-                                                        <Filter column={header.column} todos={data} displayedRowsLength={displayedRows.length} />
-                                                    </div>
-                                                ) : null}
-                                            </>
-                                        )}
-                                    </th>
-                                )
-                            })}
-                        </tr>
-                    ))}
-                </thead>
-                <tbody>
-                    {table.getRowModel().rows.map(row => {
-                        return (
-                            <tr key={row.id}>
-                                {row.getVisibleCells().map(cell => {
+        <div >
+            <TableContainer>
+                <Table>
+                    <Thead>
+                        {table.getHeaderGroups().map(headerGroup => (
+                            <Tr key={headerGroup.id}>
+                                {headerGroup.headers.map(header => {
                                     return (
-                                        <td key={cell.id}>
-                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                        </td>
+                                        <Th key={header.id} colSpan={header.colSpan} className='table-header'>
+                                            {header.isPlaceholder ? null : (
+                                                <>
+                                                    <div
+                                                        className={header.column.getCanSort() ? 'sort-header' : ''}
+                                                        onClick={header.column.getToggleSortingHandler()}
+                                                    >
+                                                        {flexRender(header.column.columnDef.header, header.getContext())}
+                                                        {{
+                                                            asc: <TriangleUpIcon />,
+                                                            desc: <TriangleDownIcon />,
+                                                        }[header.column.getIsSorted()] ?? null}
+                                                        {(header.column.getCanSort() && !header.column.getIsSorted()) && <ArrowUpDownIcon />}
+                                                    </div>
+                                                    {header.column.getCanFilter() ? (
+                                                        <Filter column={header.column} todos={data} displayedRowsLength={displayedRows.length} />
+                                                    ) : null}
+                                                </>
+                                            )}
+                                        </Th>
                                     )
                                 })}
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
-            <div className="h-2" />
-            <div className="flex items-center gap-2">
+                            </Tr>
+                        ))}
+                    </Thead>
+                    <Tbody>
+                        {table.getRowModel().rows.map(row => {
+                            return (
+                                <Tr key={row.id}>
+                                    {row.getVisibleCells().map(cell => {
+                                        return (
+                                            <Td key={cell.id}>
+                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                            </Td>
+                                        )
+                                    })}
+                                </Tr>
+                            )
+                        })}
+                    </Tbody>
+                </Table>
+            </TableContainer>
+
+            {/* <div className="flex ">
                 <button
                     className="border rounded p-1"
                     onClick={() => table.setPageIndex(0)}
@@ -154,7 +171,7 @@ export function ReactTable({ data, onRemoveTodo }) {
                 >
                     {'>>'}
                 </button>
-                <span className="flex items-center gap-1">
+                <span className="flex">
                     <div>Page</div>
                     <strong>
                         {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
@@ -162,7 +179,7 @@ export function ReactTable({ data, onRemoveTodo }) {
                 </span>
                 <span className="flex items-center gap-1">
                     | Go to page:
-                    <input
+                    <Input
                         type="number"
                         min="1"
                         max={table.getPageCount()}
@@ -171,7 +188,6 @@ export function ReactTable({ data, onRemoveTodo }) {
                             const page = e.target.value ? Number(e.target.value) - 1 : 0
                             table.setPageIndex(page)
                         }}
-                        className="border p-1 rounded w-16"
                     />
                 </span>
                 <select
@@ -186,7 +202,7 @@ export function ReactTable({ data, onRemoveTodo }) {
                         </option>
                     ))}
                 </select>
-            </div>
+            </div> */}
         </div>
     )
 }
