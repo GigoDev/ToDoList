@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 import { Button, Spinner } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
+import ApprovedOrderImage from '../assets/imgs/ApprovedOrder.png';
 
 
 export function TodoIndex() {
@@ -64,7 +65,10 @@ export function TodoIndex() {
 
     return (
         <section className="todo-index">
-            <h1>TODO LIST</h1>
+            <div className="index-header flex">
+                <h1>TODO LIST</h1>
+                <div><img src={ApprovedOrderImage} /></div>
+            </div>
             <Link className="add-btn" to="/todo/edit">
                 <Button size='lg' leftIcon={<AddIcon />} colorScheme='pink' variant='solid'>New Task</Button>
             </Link>
@@ -74,7 +78,7 @@ export function TodoIndex() {
                 pagination={pagination}
                 setPagination={setPagination}
             />
-            <Outlet /> 
+            <Outlet />
         </section>
     )
 }

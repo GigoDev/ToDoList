@@ -64,7 +64,7 @@ export const ReactTable = memo(function ReactTable({ data, onRemoveTodo, paginat
                 cell: info => {
                     const priority = info.getValue();
                     let colorScheme = '';
-                    
+
                     // Define the logic to switch the badge color according to the priority level
                     switch (priority) {
                         case 'Low':
@@ -79,7 +79,7 @@ export const ReactTable = memo(function ReactTable({ data, onRemoveTodo, paginat
                         default:
                             colorScheme = 'gray';
                     }
-    
+
                     return <Badge colorScheme={colorScheme}>{priority}</Badge>;
                 },
                 meta: {
@@ -170,7 +170,7 @@ export const ReactTable = memo(function ReactTable({ data, onRemoveTodo, paginat
                 </Table>
             </TableContainer>
 
-            <div className="flex pagination-controls">
+            <div className="flex pagination-controls" hidden={table.getFilteredRowModel().rows.length < 11}>
                 <button
                     className="border rounded p-1"
                     onClick={() => table.previousPage()}

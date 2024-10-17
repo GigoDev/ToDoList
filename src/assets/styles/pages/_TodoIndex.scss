@@ -10,11 +10,37 @@
     border-radius: 6px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 
-    h1 {
-        text-align: center;
-        font-size: 22px;
-        font-weight: 600;
-        color: #333;
+    .index-header {
+        justify-content: center;
+        align-items: center;
+        gap: .8rem;
+
+        h1 {
+            position: relative;
+
+            margin: 0;
+
+            text-align: center;
+            font-size: 22px;
+            font-weight: 600;
+            color: #333;
+
+            &::before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                height: 3px;
+                width: 28px;
+                border-radius: 12px;
+                background: #4070f4;
+            }
+
+        }
+        
+        div{
+            height: 50px;
+            width: 50px;
+        }
     }
 
     .add-btn {
@@ -23,5 +49,6 @@
         left: 50%;
         transform: translate(-50%, 55%);
 
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;    }
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
 }
