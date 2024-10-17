@@ -1,4 +1,4 @@
-.sort-header{
+.sort-header {
     display: flex;
     align-items: center;
     gap: .4rem;
@@ -6,4 +6,17 @@
     padding-block: .5rem;
 
     cursor: pointer;
+
+}
+
+.pagination-controls {
+    justify-content: end;
+    align-items: center;
+    gap: 1rem;
+
+    margin-block-start: .8rem;
+
+    .current-page {
+        gap: .3rem;
+    }
 }

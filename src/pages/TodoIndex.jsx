@@ -57,7 +57,7 @@ export function TodoIndex() {
         <section className="todo-index">
             <h1>TODO LIST</h1>
             <Link className="add-btn" to="/todo/edit">
-                <Button leftIcon={<AddIcon />} colorScheme='pink' variant='solid'>Add Task</Button>
+                <Button size='lg' leftIcon={<AddIcon />} colorScheme='pink' variant='solid'>Add Task</Button>
             </Link>
             <ReactTable data={todos} onRemoveTodo={onRemoveTodo} />
         </section>

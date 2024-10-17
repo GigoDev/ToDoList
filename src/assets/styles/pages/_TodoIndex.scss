@@ -1,4 +1,6 @@
 .todo-index {
+    position: relative;
+
     padding: 1rem;
 
     background-color: #fff;
@@ -11,4 +13,12 @@
         font-weight: 600;
         color: #333;
     }
+
+    .add-btn {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 55%);
+
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;    }
 }
