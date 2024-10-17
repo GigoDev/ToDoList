@@ -65,12 +65,6 @@ function createDemoData() {
     return [
         {
             _id: makeId(),
-            task: 'Complete project documentation',
-            assignee: 'John Doe',
-            priority: 'High'
-        },
-        {
-            _id: makeId(),
             task: 'Fix login page bug',
             assignee: 'Jane Smith',
             priority: 'Medium'
@@ -123,66 +117,9 @@ function createDemoData() {
             assignee: 'Joey Tribbiani',
             priority: 'Low'
         },
-        {
-            _id: makeId(),
-            task: 'Prepare project timeline',
-            assignee: 'Phoebe Buffay',
-            priority: 'High'
-        },
-        {
-            _id: makeId(),
-            task: 'Update error handling',
-            assignee: 'Tina Fey',
-            priority: 'Medium'
-        },
-        {
-            _id: makeId(),
-            task: 'Fix mobile responsiveness',
-            assignee: 'Amy Poehler',
-            priority: 'High'
-        },
-        {
-            _id: makeId(),
-            task: 'Improve performance of homepage',
-            assignee: 'Will Ferrell',
-            priority: 'Low'
-        },
-        {
-            _id: makeId(),
-            task: 'Conduct code review',
-            assignee: 'Steve Carell',
-            priority: 'Medium'
-        },
-        {
-            _id: makeId(),
-            task: 'Develop customer feedback form',
-            assignee: 'Mindy Kaling',
-            priority: 'High'
-        },
-        {
-            _id: makeId(),
-            task: 'Fix API endpoint bugs',
-            assignee: 'Jim Halpert',
-            priority: 'Medium'
-        },
-        {
-            _id: makeId(),
-            task: 'Write unit tests for backend',
-            assignee: 'Pam Beesly',
-            priority: 'Low'
-        },
-        {
-            _id: makeId(),
-            task: 'Update user roles and permissions',
-            assignee: 'Dwight Schrute',
-            priority: 'High'
-        },
-        {
-            _id: makeId(),
-            task: 'Prepare for stakeholder meeting',
-            assignee: 'Michael Scott',
-            priority: 'Medium'
-        }
+
+
+ 
     ]
 }
 

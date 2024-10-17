@@ -15,12 +15,6 @@ export function TodoIndex() {
     const [todos, setTodos] = useState(null)
     const { pathname } = useLocation()
 
-    // Lifted pagination state from ReactTable to prevent reset when navigating
-    const [pagination, setPagination] = useState({
-        pageIndex: 0,
-        pageSize: 10,
-    })
-
     useEffect(() => {
         loadTodos()
     }, [pathname])   // pathname is added to useEffect dependencies to reload todos when navigating
@@ -75,8 +69,6 @@ export function TodoIndex() {
             <ReactTable
                 data={todos}
                 onRemoveTodo={onRemoveTodo}
-                pagination={pagination}
-                setPagination={setPagination}
             />
             <Outlet />
         </section>
