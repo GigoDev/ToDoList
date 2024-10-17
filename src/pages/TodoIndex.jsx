@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { ReactTable } from "../cmps/ReactTable"
 import { todoService } from "../services/todo.service"
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
@@ -13,10 +13,11 @@ import { AddIcon } from "@chakra-ui/icons";
 export function TodoIndex() {
 
     const [todos, setTodos] = useState(null)
+    const {pathname} = useLocation()
 
     useEffect(() => {
         loadTodos()
-    }, [])
+    }, [pathname])
 
     async function loadTodos() {
         try {
@@ -60,6 +61,7 @@ export function TodoIndex() {
                 <Button size='lg' leftIcon={<AddIcon />} colorScheme='pink' variant='solid'>Add Task</Button>
             </Link>
             <ReactTable data={todos} onRemoveTodo={onRemoveTodo} />
+            <Outlet />
         </section>
 
     )

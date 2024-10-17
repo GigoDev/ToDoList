@@ -1,5 +1,11 @@
 .todo-edit {
-    width: 50vh;
+    position: fixed;
+    inset: 0;
+    top: -20%;
+    z-index: 1000;
+
+    height: 500px;
+    aspect-ratio: 1;
 
     margin: auto;
     padding: 2rem;
@@ -7,6 +13,10 @@
     background-color: #fff;
     border-radius: 6px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    // box-shadow:
+    // 0 0 0 100vmax rgba(0, 0, 0, 0.5),
+    // -3px 1px 28px #00000043;
+
 
     h1 {
         align-self: center;
@@ -23,4 +33,12 @@
         display: flex;
         justify-content: space-between;
     }
+}
+
+.modal-overlay{
+    position: fixed;
+    inset: 0;
+    z-index: 999; 
+
+    background: rgba(0, 0, 0, 0.5); 
 }

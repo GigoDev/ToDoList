@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { todoService } from "../services/todo.service.js"
 import { Button, ButtonGroup, Input, Select, Spinner, Text } from '@chakra-ui/react'
@@ -12,6 +12,7 @@ export function TodoEdit() {
     const [todoToEdit, setTodoToEdit] = useState(todoService.getEmptyTodo())
     const navigate = useNavigate()
     const { todoId } = useParams()
+
 
     useEffect(() => {
         if (todoId) loadTodo()
@@ -50,36 +51,39 @@ export function TodoEdit() {
     const { task, assignee } = todoToEdit
 
     return (
-        <section className="todo-edit flex column">
-            <h1>{todoId ? 'Edit' : 'Add'} Todo</h1>
-            <form className="flex column" onSubmit={onSaveTodo}>
+        <>
+            <section className="todo-edit flex column">
+                <h1>{todoId ? 'Edit' : 'Add'} Todo</h1>
+                <form className="flex column" onSubmit={onSaveTodo}>
 
-                <div className="input-container">
-                    <Text mb='8px'>Task: </Text>
-                    <Input onChange={handleChange} value={task} type="text" name="task" isRequired />
-                </div>
+                    <div className="input-container">
+                        <Text mb='8px'>Task: </Text>
+                        <Input onChange={handleChange} value={task} type="text" name="task" isRequired />
+                    </div>
 
-                <div className="input-container">
-                    <Text mb='8px'>Assignee: </Text>
-                    <Input onChange={handleChange} value={assignee} type="text" name="assignee" isRequired />
-                </div>
+                    <div className="input-container">
+                        <Text mb='8px'>Assignee: </Text>
+                        <Input onChange={handleChange} value={assignee} type="text" name="assignee" isRequired />
+                    </div>
 
-                <div className="input-container">
-                    <Text mb='8px'>Select priority: </Text>
-                    <Select onChange={handleChange} name="priority">
-                        <option value="High">High</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Low">Low</option>
-                    </Select>
-                </div>
+                    <div className="input-container">
+                        <Text mb='8px'>Select priority: </Text>
+                        <Select onChange={handleChange} name="priority">
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </Select>
+                    </div>
 
-                <ButtonGroup spacing='6'>
-                    <Button  type="submit" colorScheme='blue'>{todoId ? 'Save' : 'Add'}</Button>
-                    <Link to="/todo"> <Button>Cancel</Button></Link>
-                </ButtonGroup>
+                    <ButtonGroup spacing='6'>
+                        <Button type="submit" colorScheme='blue'>{todoId ? 'Save' : 'Add'}</Button>
+                        <Link to="/todo"> <Button>Cancel</Button></Link>
+                    </ButtonGroup>
 
-            </form>
-        </section>
+                </form>
+            </section>
+            <div className="modal-overlay"></div>
+        </>
     )
 
 }
