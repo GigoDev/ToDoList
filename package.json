@@ -2,6 +2,7 @@
   "name": "todolist",
   "private": true,
   "version": "0.0.0",
+   "homepage": "https://gigodev.github.io/ToDoList/",
   "type": "module",
   "scripts": {
     "dev": "vite",
