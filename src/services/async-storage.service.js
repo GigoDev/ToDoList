@@ -6,8 +6,7 @@ export const storageService = {
     remove,
 }
 
-// Returns a delayed promise to simulate a request to a remote server
-function query(entityType, delay = 500) {
+function query(entityType, delay = 0) {
     var entities = JSON.parse(localStorage.getItem(entityType)) 
     return new Promise(resolve => setTimeout(() => resolve(entities), delay))
 }
