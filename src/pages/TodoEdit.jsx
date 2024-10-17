@@ -53,7 +53,7 @@ export function TodoEdit() {
     return (
         <>
             <section className="todo-edit flex column">
-                <h1>{todoId ? 'Edit' : 'Add'} Todo</h1>
+                <h1>{todoId ? 'Edit' : 'Add'} Task</h1>
                 <form className="flex column" onSubmit={onSaveTodo}>
 
                     <div className="input-container">

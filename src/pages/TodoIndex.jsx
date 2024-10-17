@@ -11,9 +11,14 @@ import { AddIcon } from "@chakra-ui/icons";
 
 
 export function TodoIndex() {
-
     const [todos, setTodos] = useState(null)
-    const {pathname} = useLocation()
+    const { pathname } = useLocation()
+
+    // Pagination state
+    const [pagination, setPagination] = useState({
+        pageIndex: 0,
+        pageSize: 10,
+    })
 
     useEffect(() => {
         loadTodos()
@@ -50,19 +55,21 @@ export function TodoIndex() {
         }
     }
 
+    if (!todos) return <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl' />
 
-
-    if (!todos) return <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl'
-    />
     return (
         <section className="todo-index">
             <h1>TODO LIST</h1>
             <Link className="add-btn" to="/todo/edit">
-                <Button size='lg' leftIcon={<AddIcon />} colorScheme='pink' variant='solid'>Add Task</Button>
+                <Button size='lg' leftIcon={<AddIcon />} colorScheme='pink' variant='solid'>New Task</Button>
             </Link>
-            <ReactTable data={todos} onRemoveTodo={onRemoveTodo} />
+            <ReactTable
+                data={todos}
+                onRemoveTodo={onRemoveTodo}
+                pagination={pagination}
+                setPagination={setPagination}
+            />
             <Outlet />
         </section>
-
     )
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 import {
     flexRender,
@@ -27,8 +27,7 @@ import { Link } from 'react-router-dom'
 import { ArrowBackIcon, ArrowForwardIcon, ArrowUpDownIcon, DeleteIcon, EditIcon, TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons'
 
 
-export function ReactTable({ data, onRemoveTodo }) {
-
+export const ReactTable = memo(function ReactTable({ data, onRemoveTodo, pagination, setPagination }) {
     const [columnFilters, setColumnFilters] = React.useState([])
 
     const columns = React.useMemo(
@@ -59,7 +58,6 @@ export function ReactTable({ data, onRemoveTodo }) {
             {
                 id: 'delete',
                 cell: ({ row }) => (
-
                     <DeleteIcon onClick={() => onRemoveTodo(row.original._id)} style={{ cursor: 'pointer' }} />
                 ),
             },
@@ -69,9 +67,8 @@ export function ReactTable({ data, onRemoveTodo }) {
                     <Link to={`/todo/edit/${row.original._id}`}>< EditIcon /></Link>
                 ),
             },
-
         ],
-        []
+        [onRemoveTodo]
     )
 
     const table = useReactTable({
@@ -79,74 +76,67 @@ export function ReactTable({ data, onRemoveTodo }) {
         columns,
         state: {
             columnFilters,
+            pagination, // Pass pagination state
         },
         onColumnFiltersChange: setColumnFilters,
+        onPaginationChange: setPagination, // Update pagination on change
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         manualFiltering: false,
-        debugTable: false,
-        debugHeaders: false,
-        debugColumns: false,
+        autoResetPageIndex: false,
     })
 
     const displayedRows = table.getRowModel().rows
 
     return (
         <>
-
             <TableContainer>
                 <Table>
                     <Thead>
                         {table.getHeaderGroups().map(headerGroup => (
                             <Tr key={headerGroup.id}>
-                                {headerGroup.headers.map(header => {
-                                    return (
-                                        <Th key={header.id} colSpan={header.colSpan} className='table-header'>
-                                            {header.isPlaceholder ? null : (
-                                                <>
-                                                    <div
-                                                        className={header.column.getCanSort() ? 'sort-header' : ''}
-                                                        onClick={header.column.getToggleSortingHandler()}
-                                                    >
-                                                        {flexRender(header.column.columnDef.header, header.getContext())}
-                                                        {{
-                                                            asc: <TriangleUpIcon />,
-                                                            desc: <TriangleDownIcon />,
-                                                        }[header.column.getIsSorted()] ?? null}
-                                                        {(header.column.getCanSort() && !header.column.getIsSorted()) && <ArrowUpDownIcon />}
-                                                    </div>
-                                                    {header.column.getCanFilter() ? (
-                                                        <Filter column={header.column} todos={data} displayedRowsLength={displayedRows.length} />
-                                                    ) : null}
-                                                </>
-                                            )}
-                                        </Th>
-                                    )
-                                })}
+                                {headerGroup.headers.map(header => (
+                                    <Th key={header.id} colSpan={header.colSpan} className='table-header'>
+                                        {header.isPlaceholder ? null : (
+                                            <>
+                                                <div
+                                                    className={header.column.getCanSort() ? 'sort-header' : ''}
+                                                    onClick={header.column.getToggleSortingHandler()}
+                                                >
+                                                    {flexRender(header.column.columnDef.header, header.getContext())}
+                                                    {{
+                                                        asc: <TriangleUpIcon />,
+                                                        desc: <TriangleDownIcon />,
+                                                    }[header.column.getIsSorted()] ?? null}
+                                                    {(header.column.getCanSort() && !header.column.getIsSorted()) && <ArrowUpDownIcon />}
+                                                </div>
+                                                {header.column.getCanFilter() ? (
+                                                    <Filter column={header.column} todos={data} displayedRowsLength={displayedRows.length} />
+                                                ) : null}
+                                            </>
+                                        )}
+                                    </Th>
+                                ))}
                             </Tr>
                         ))}
                     </Thead>
                     <Tbody>
-                        {table.getRowModel().rows.map(row => {
-                            return (
-                                <Tr key={row.id}>
-                                    {row.getVisibleCells().map(cell => {
-                                        return (
-                                            <Td key={cell.id}>
-                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                            </Td>
-                                        )
-                                    })}
-                                </Tr>
-                            )
-                        })}
+                        {table.getRowModel().rows.map(row => (
+                            <Tr key={row.id}>
+                                {row.getVisibleCells().map(cell => (
+                                    <Td key={cell.id}>
+                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                    </Td>
+                                ))}
+                            </Tr>
+                        ))}
                     </Tbody>
                 </Table>
             </TableContainer>
 
-            <div className="flex pagination-controls ">
+            <div className="flex pagination-controls">
                 <button
                     className="border rounded p-1"
                     onClick={() => table.previousPage()}
@@ -164,13 +154,10 @@ export function ReactTable({ data, onRemoveTodo }) {
                 <span className="flex current-page">
                     <div>Page</div>
                     <strong>
-                        {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+                        {pagination.pageIndex + 1} of {table.getPageCount()}
                     </strong>
                 </span>
             </div>
         </>
     )
-}
-
-
-
+})
