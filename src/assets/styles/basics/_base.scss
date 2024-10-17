@@ -6,14 +6,19 @@ html {
     line-height: 1.6;
     color: $clr2;
 }
-    
+
 body {
-    margin: 0 auto ;
+    margin: 0 auto;
 
     font-size: rem(18px);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin: 0 0 0.6em;
 }
 
@@ -27,7 +32,7 @@ p {
 }
 
 a {
-    text-decoration: none ; 
+    text-decoration: none;
 }
 
 ul {
@@ -37,4 +42,11 @@ ul {
 
 input {
     max-width: 100%;
+}
+
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

@@ -14,7 +14,7 @@ export function TodoIndex() {
     const [todos, setTodos] = useState(null)
     const { pathname } = useLocation()
 
-    // Pagination state
+    // Lifted pagination state from ReactTable to prevent reset when navigating
     const [pagination, setPagination] = useState({
         pageIndex: 0,
         pageSize: 10,
@@ -22,7 +22,8 @@ export function TodoIndex() {
 
     useEffect(() => {
         loadTodos()
-    }, [pathname])
+    }, [pathname])   // pathname is added to useEffect dependencies to reload todos when navigating
+
 
     async function loadTodos() {
         try {
@@ -35,6 +36,8 @@ export function TodoIndex() {
 
     async function onRemoveTodo(todoId) {
         try {
+
+            // Delete confirmation
             const result = await Swal.fire({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
@@ -47,6 +50,8 @@ export function TodoIndex() {
             if (!result.isConfirmed) return
 
             await todoService.remove(todoId)
+
+            // Update local state after service removal
             setTodos(todos => todos.filter(todo => todo._id !== todoId))
             toast.success('Todo was successfully removed!')
         } catch (err) {
@@ -55,7 +60,7 @@ export function TodoIndex() {
         }
     }
 
-    if (!todos) return <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl' />
+    if (!todos) return <Spinner className="spinner" thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl' />
 
     return (
         <section className="todo-index">
@@ -69,7 +74,7 @@ export function TodoIndex() {
                 pagination={pagination}
                 setPagination={setPagination}
             />
-            <Outlet />
+            <Outlet /> 
         </section>
     )
 }

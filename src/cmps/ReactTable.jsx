@@ -64,7 +64,8 @@ export const ReactTable = memo(function ReactTable({ data, onRemoveTodo, paginat
                 cell: info => {
                     const priority = info.getValue();
                     let colorScheme = '';
-    
+                    
+                    // Define the logic to switch the badge color according to the priority level
                     switch (priority) {
                         case 'Low':
                             colorScheme = 'green';

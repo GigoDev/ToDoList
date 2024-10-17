@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { todoService } from "../services/todo.service.js"
 import { Button, ButtonGroup, Input, Select, Spinner, Text } from '@chakra-ui/react'
@@ -6,13 +6,11 @@ import { Button, ButtonGroup, Input, Select, Spinner, Text } from '@chakra-ui/re
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 export function TodoEdit() {
 
     const [todoToEdit, setTodoToEdit] = useState(todoService.getEmptyTodo())
     const navigate = useNavigate()
     const { todoId } = useParams()
-
 
     useEffect(() => {
         if (todoId) loadTodo()
@@ -24,6 +22,8 @@ export function TodoEdit() {
             setTodoToEdit(todo)
         } catch (err) {
             console.log('err:', err)
+            toast.error('Something went wrong, cannot load todo')
+
         }
     }
 
@@ -37,9 +37,12 @@ export function TodoEdit() {
             navigate('/todo')
         } catch (err) {
             console.log('err:', err)
+            toast.error(`Something went wrong, cannot ${actionType} todo`)
+
         }
     }
 
+    // Controled form:
     function handleChange({ target }) {
         const field = target.name
         const value = target.value
@@ -49,7 +52,7 @@ export function TodoEdit() {
 
 
     const { task, assignee } = todoToEdit
-
+    if (!task && todoId ) return <Spinner className="spinner" thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl'  />
     return (
         <>
             <section className="todo-edit flex column">
