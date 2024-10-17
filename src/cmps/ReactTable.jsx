@@ -4,7 +4,6 @@ import {
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
-    getPaginationRowModel,
     getSortedRowModel,
     useReactTable,
 } from '@tanstack/react-table'
@@ -13,13 +12,10 @@ import {
     Table,
     Thead,
     Tbody,
-    Tfoot,
     Tr,
     Th,
     Td,
-    TableCaption,
     TableContainer,
-    Input,
     Badge,
 } from '@chakra-ui/react'
 
@@ -28,7 +24,7 @@ import { Link } from 'react-router-dom'
 import { ArrowBackIcon, ArrowForwardIcon, ArrowUpDownIcon, DeleteIcon, EditIcon, TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons'
 
 
-export const ReactTable = memo(function ReactTable({ data, onRemoveTodo, pagination, setPagination }) {
+export const ReactTable = memo(function ReactTable({ data, onRemoveTodo }) {
     const [columnFilters, setColumnFilters] = React.useState([])
 
     const columns = React.useMemo(
@@ -110,16 +106,12 @@ export const ReactTable = memo(function ReactTable({ data, onRemoveTodo, paginat
         columns,
         state: {
             columnFilters,
-            pagination, // Pass pagination state
         },
         onColumnFiltersChange: setColumnFilters,
-        onPaginationChange: setPagination, // Update pagination on change
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
         getSortedRowModel: getSortedRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
         manualFiltering: false,
-        autoResetPageIndex: false,
     })
 
     const displayedRows = table.getRowModel().rows
@@ -169,29 +161,6 @@ export const ReactTable = memo(function ReactTable({ data, onRemoveTodo, paginat
                     </Tbody>
                 </Table>
             </TableContainer>
-
-            <div className="flex pagination-controls" hidden={table.getFilteredRowModel().rows.length < 11}>
-                <button
-                    className="border rounded p-1"
-                    onClick={() => table.previousPage()}
-                    disabled={!table.getCanPreviousPage()}
-                >
-                    <ArrowBackIcon />
-                </button>
-                <button
-                    className="border rounded p-1"
-                    onClick={() => table.nextPage()}
-                    disabled={!table.getCanNextPage()}
-                >
-                    <ArrowForwardIcon />
-                </button>
-                <span className="flex current-page">
-                    <div>Page</div>
-                    <strong>
-                        {pagination.pageIndex + 1} of {table.getPageCount()}
-                    </strong>
-                </span>
-            </div>
         </>
     )
 })
