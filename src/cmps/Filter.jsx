@@ -6,7 +6,7 @@ export function Filter({ column, todos, displayedRowsLength }) {
 
 
     if (!filterVariant) return null
-    if (!displayedRowsLength) column.setFilterValue('')
+    if (!displayedRowsLength && columnFilterValue) column.setFilterValue('')
 
     function getUniqueValues(data, accessorKey) {
         const values = data.map(item => item[accessorKey]);
