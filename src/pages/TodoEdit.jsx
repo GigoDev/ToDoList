@@ -28,16 +28,17 @@ export function TodoEdit() {
     }
 
     async function onSaveTodo(ev) {
+        const actionType = todoId ? 'saved' : ' added'
+
         try {
             ev.preventDefault()
 
             await todoService.save(todoToEdit)
-            const actionType = todoId ? 'saved' : ' added'
-            toast.success(`Todo was successfully ${actionType}`)
+            toast.success(`Todo was ${actionType} successfully `)
             navigate('/todo')
         } catch (err) {
             console.log('err:', err)
-            toast.error(`Something went wrong, cannot ${actionType} todo`)
+            toast.error(`Something went wrong, todo was not ${actionType}`)
 
         }
     }
@@ -51,8 +52,8 @@ export function TodoEdit() {
     }
 
 
-    const { task, assignee } = todoToEdit
-    if (!task && todoId ) return <Spinner className="spinner" thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl'  />
+    const { task, assignee, priority } = todoToEdit
+    if (!task && todoId) return <Spinner className="spinner" thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl' />
     return (
         <>
             <section className="todo-edit flex column">
@@ -71,7 +72,7 @@ export function TodoEdit() {
 
                     <div className="input-container">
                         <Text mb='8px'>Select priority: </Text>
-                        <Select onChange={handleChange} name="priority">
+                        <Select onChange={handleChange} name="priority" value={priority}>
                             <option value="High">High</option>
                             <option value="Medium">Medium</option>
                             <option value="Low">Low</option>
