@@ -41,6 +41,19 @@ export const ReactTable = memo(function ReactTable({ data, onRemoveTodo, paginat
             {
                 accessorKey: 'assignee',
                 header: () => 'Assignee',
+                cell: ({ row }) => {
+                    const assigneeName = row.original.assignee
+                    return (
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <img className='avatar'
+                                src={`https://api.dicebear.com/9.x/personas/svg?seed=${assigneeName}`}
+                                alt="Assignee Avatar"
+                                // style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '10px' }}
+                            />
+                            <span>{assigneeName}</span>
+                        </div>
+                    )
+                },
                 meta: {
                     filterVariant: 'select',
                 },
