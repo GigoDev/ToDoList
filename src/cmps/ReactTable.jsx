@@ -20,6 +20,7 @@ import {
     TableCaption,
     TableContainer,
     Input,
+    Badge,
 } from '@chakra-ui/react'
 
 import { Filter } from './Filter'
@@ -48,7 +49,6 @@ export const ReactTable = memo(function ReactTable({ data, onRemoveTodo, paginat
                             <img className='avatar'
                                 src={`https://api.dicebear.com/9.x/personas/svg?seed=${assigneeName}`}
                                 alt="Assignee Avatar"
-                                // style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '10px' }}
                             />
                             <span>{assigneeName}</span>
                         </div>
@@ -61,6 +61,26 @@ export const ReactTable = memo(function ReactTable({ data, onRemoveTodo, paginat
             {
                 accessorKey: 'priority',
                 header: () => 'Priority',
+                cell: info => {
+                    const priority = info.getValue();
+                    let colorScheme = '';
+    
+                    switch (priority) {
+                        case 'Low':
+                            colorScheme = 'green';
+                            break;
+                        case 'Medium':
+                            colorScheme = 'yellow';
+                            break;
+                        case 'High':
+                            colorScheme = 'red';
+                            break;
+                        default:
+                            colorScheme = 'gray';
+                    }
+    
+                    return <Badge colorScheme={colorScheme}>{priority}</Badge>;
+                },
                 meta: {
                     filterVariant: 'select',
                 }, sortingFn: (rowA, rowB) => {
